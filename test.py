@@ -3,6 +3,7 @@ import os.path
 import sys
 
 import numpy as np
+from array import array
 from dpkt.pcap import Reader
 from tqdm import tqdm, trange
 
@@ -15,9 +16,9 @@ if len(sys.argv) < 2:
 path = sys.argv[1]
 
 prev_time = 0
-inter_arrival_times = []
+inter_arrival_times = array('d', [])
 step = 0.010  # 10ms
-time_series = []
+time_series = array('d', [])
 with open(path, 'rb') as f:
     for time, _ in tqdm(Reader(f), unit=' packets', desc='Read file'):
         inter_arrival_time = float(time - prev_time)
