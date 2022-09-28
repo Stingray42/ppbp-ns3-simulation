@@ -5,7 +5,7 @@ import sys
 import numpy as np
 from array import array
 from dpkt.pcap import Reader
-from tqdm import tqdm, trange
+from tqdm import tqdm
 
 if len(sys.argv) < 2:
     print('Usage:', os.path.basename(sys.argv[0]), 'PATH', file=sys.stderr)
@@ -35,7 +35,7 @@ def aggvar(series):
     n = 50
     m_values = np.logspace(0, np.log10(len(series) // 5), n)
     variances = np.zeros(n)
-    for i in trange(n, desc='Calculate'):
+    for i in tqdm(range(n), desc='Calculate'):
         n_sections = len(series) // m_values[i]
         aggregated = np.array_split(series, n_sections)
         aggregated = [np.mean(i) for i in aggregated]
